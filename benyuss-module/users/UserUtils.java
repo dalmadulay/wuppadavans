@@ -20,9 +20,9 @@ public class UserUtils {
         //ezzel a metódussal tudok user-t hozzáadni a listához (a main metódusból.)
         users.add(user);
         AccountUtils accountUtils = new AccountUtils();
-        accountUtils.setAmountOfAccounts(scanner);
+        int userAccounts = accountUtils.amountOfAccounts(scanner);
 
-        for (int i = 1; i < accountUtils.getAmountOfAccounts(); i++) {
+        for (int i = 0; i < userAccounts ; i++) {
             String bban = accountUtils.setBban(scanner);
             Account account = new Account(
                     accountUtils.setCurrency( accountUtils.initCurrency(scanner)),
@@ -79,7 +79,6 @@ public class UserUtils {
                 validAge = false;
             }
         }
-
 
         boolean validGender = true;
         int gender = 2;

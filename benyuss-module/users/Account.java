@@ -1,9 +1,6 @@
 package users;
 
 import java.sql.Timestamp;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Account {
 
@@ -12,12 +9,15 @@ public class Account {
     private String bban;
     private String bankName;
 
-    public Account (String currency, String bban, String bankName) {
+    public Account(String currency, String bban, String bankName) {
+        this.bban = bban;
+        this.bankName = bankName;
+        this.currency = currency;
+        setCreationDate();
+    }
 
-            this.bban = bban;
-            this.bankName = bankName;
-            this.currency = currency;
-            setCreationDate();
+    public Timestamp getCreationDate() {
+        return creationDate;
     }
 
     public void setCreationDate() {
@@ -26,7 +26,27 @@ public class Account {
         this.creationDate = new Timestamp(date.getTime());
     }
 
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
     public String getBban() {
         return bban;
+    }
+
+    public void setBban(String bban) {
+        this.bban = bban;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
     }
 }

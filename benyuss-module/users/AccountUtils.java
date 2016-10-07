@@ -25,20 +25,14 @@ public class AccountUtils {
         BANKS = Collections.unmodifiableMap(tmp);
     }
 
-    private int amountOfAccounts;
-
-    public void setAmountOfAccounts(Scanner scanner) {
+    public int amountOfAccounts(Scanner scanner) {
         System.out.println("How many bank accounts do you have?");
-        this.amountOfAccounts = scanner.nextInt();
-    }
-
-    public int getAmountOfAccounts() {
-        return amountOfAccounts;
+        return scanner.nextInt();
     }
 
     public String initCurrency (Scanner scanner) {
-        System.out.println("What Foreign Currency would like to set to that account?\n" +
-                              "(specify in the 3 characters long ID. Like USD, EUR, ...");
+        System.out.println("What Foreign Currency would you like to set on that account?\n" +
+                              "(specify with the 3 characters long ID. Like USD, EUR, etc...");
         return scanner.next();
     }
 
@@ -54,7 +48,6 @@ public class AccountUtils {
         } else {
             System.out.println("Nem megfelelő deviza formátum.");
         }
-
         return null;
     }
 
@@ -75,7 +68,6 @@ public class AccountUtils {
         } else {
             System.out.println("Nem megfelelő bankszámlaszám formátum.");
         }
-
      return null;
     }
 
@@ -87,9 +79,9 @@ public class AccountUtils {
         } else {
             //levágjuk az első 3 karaktert és megnézzük, hogy a listában létezik-e bank ilyen azonosítóval
             CharSequence bankID = bban.subSequence(0, 3);
-            String bankName = BANKS.get(bankID);
+            String bankName = BANKS.get(Integer.parseInt(bankID.toString()));
             if (bankName == null) {
-                System.out.println("Ismeretlen bank! Kérem hívja a supportot!");
+                System.out.println("Ismeretlen bank! Kérem keresse a supportot!");
             }
             else {
                 System.out.println("A bank neve: " + bankName);
