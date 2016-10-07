@@ -25,7 +25,7 @@ public class Application {
 
         for (int i = 0; i < amountOfUsers; i++) {
             //Annyi usert adunk a listához, amennyit bekértünk. Az initUser metódusban több infót találtok.
-            utils.addUser(utils.initUser(scanner));
+            utils.addUser(utils.initUser(scanner), scanner);
         }
 
         //toString() metódus és ahhoz tartozó bekérés.

@@ -16,9 +16,20 @@ public class UserUtils {
         return this.gender[gender];
     }
 
-    public void addUser (User user) {
+    public void addUser (User user, Scanner scanner) {
         //ezzel a metódussal tudok user-t hozzáadni a listához (a main metódusból.)
         users.add(user);
+        AccountUtils accountUtils = new AccountUtils();
+        accountUtils.setAmountOfAccounts(scanner);
+
+        for (int i = 1; i < accountUtils.getAmountOfAccounts(); i++) {
+            String bban = accountUtils.setBban(scanner);
+            Account account = new Account(
+                    accountUtils.setCurrency( accountUtils.initCurrency(scanner)),
+                            bban, accountUtils.setBankName(bban)
+            );
+            user.getAccounts().add(account);
+        }
     }
 
     public User initUser (Scanner scanner) {
@@ -121,11 +132,4 @@ public class UserUtils {
         }
         return false;
     }
-
-    public void addAccounts (Scanner scanner) {
-        System.out.println("How many bank accounts do you have?");
-        int amount = scanner.nextInt();
-
-    }
-
 }

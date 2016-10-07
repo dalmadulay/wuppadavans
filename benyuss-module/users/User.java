@@ -12,7 +12,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String gender;
-    private List<Account> accountList = new ArrayList<Account>();
+    private List<Account> accounts = new ArrayList<Account>();
 
     public User (String username, String firstName, String lastName, int age, String gender, long id) {
 
@@ -34,8 +34,8 @@ public class User {
         return id;
     }
 
-    public void addAccount (Account account) {
-        this.accountList.add(account);
+    public List<Account> getAccounts() {
+        return accounts;
     }
 
     @Override
