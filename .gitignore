@@ -13,3 +13,5 @@ hs_err_pid*
 rajmund-module/.idea/
 *.iml
 rajmund-module/target/
+vaszabi-module/.idea/
+vaszabi-module/target/

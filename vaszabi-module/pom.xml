@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>jar</packaging>
+    <groupId>hu.wup.wuppadavans</groupId>
+    <artifactId>rajmund-module</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+
+    <!-- TODO aharcsa 2016.10.07.: Ide kell rakni az összes függőség verziószámát, a properties alatti tagek elnevezése tetszőleges, de én a artifactId + '.version' szoktam hasznalni-->
+    <properties>
+        <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
+        <maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
+        <source.version>1.8</source.version>
+        <target.version>1.8</target.version>
+    </properties>
+
+
+    <!--TODO aharcsa 20161007 ezt fogadjatok el igy ahogy van, egyebkent van egy rakas plugin, ezek igy tolthetoek be. most van 2
+        A maven-compiler-plugin felelős azért h milyen verziószámú forráskódot és targetet szeretnénk használni.
+        A maven-jar-plugin pedig azért kell, hogy az artifact tudjon futni mint jar application lsd.: run configuration
+     -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${source.version}</source>
+                    <target>${target.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- Build an executable JAR -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar-plugin.version}</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>hu.wup.wuppadavans.Application</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
