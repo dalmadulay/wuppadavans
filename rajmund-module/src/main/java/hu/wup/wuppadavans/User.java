@@ -1,6 +1,6 @@
 package hu.wup.wuppadavans;
 
-public class User {
+public class User extends Account {
 		public String lastName;
 		public String firstName;
 		public String gender;
@@ -9,13 +9,16 @@ public class User {
 		
 		 @Override
 		    public String toString() {
-		        return "Felhaszn�l�: " +
+		        return "Felhasználo: " +
 		                "ID= " + ID+1 +
-		                ", Keresztn�v= " + firstName + '\'' +
-		                ", Vezet�kn�v= " + lastName + '\'' +
-		                ", �letkor= " + age +
+		                ", Keresztnev= " + firstName + '\'' +
+		                ", Vezeteknev= " + lastName + '\'' +
+		                ", Eletkor= " + age +
 		                ", Nemed= " + gender + '\'' +
-		                "";
+		                ", Szamlaszam: " + szamlaszam + '\'' +
+						", Devizanem: " + devizanem + '\'' +
+						", IBAN szam: HU" + iban + " " + szamlaszam + '\'' +
+						"";
 		}
 		
 		
