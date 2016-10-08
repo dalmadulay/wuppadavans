@@ -49,4 +49,14 @@ public class Account {
     public void setBankName(String bankName) {
         this.bankName = bankName;
     }
+
+    @Override
+    public String toString() {
+        return "Account {" +
+                " bban='" + bban + '\'' +
+                ", bankName='" + bankName + '\'' +
+                ", currency='" + currency + '\'' +
+                ", creationDate=" + creationDate +
+                '}';
+    }
 }

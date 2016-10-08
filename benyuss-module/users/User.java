@@ -42,11 +42,12 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
+                ", age=" + age +
+                ", username='" + username + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", age=" + age +
                 ", gender='" + gender + '\'' +
-                ", username='" + username + '\'' +
+                ", accounts=" + accounts +
                 '}';
     }
 }

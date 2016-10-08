@@ -7,32 +7,46 @@ import java.util.Scanner;
 public class UserUtils {
 
     //ebben a listában fogjuk tárolni a usereket.
-    ArrayList<User> users = new ArrayList<User>();
+    private ArrayList<User> users = new ArrayList<User>();
 
     //csupán két nem létezik, diszkrimáljuk azokat, akik másnak hiszik magukat. Sry conchita.
-    private final String[] gender = {"male" , "female"};
+    private final String[] gender = {"male", "female"};
 
-    private String setGender (int gender) {
+    private String setGender(int gender) {
         return this.gender[gender];
     }
 
-    public void addUser (User user, Scanner scanner) {
-        //ezzel a metódussal tudok user-t hozzáadni a listához (a main metódusból.)
+    public void addUser(User user, Scanner scanner) {
+        //ezzel a metódussal tudok user-t hozzáadni a listához
         users.add(user);
         AccountUtils accountUtils = new AccountUtils();
         int userAccounts = accountUtils.amountOfAccounts(scanner);
 
-        for (int i = 0; i < userAccounts ; i++) {
-            String bban = accountUtils.setBban(scanner);
-            Account account = new Account(
-                    accountUtils.setCurrency( accountUtils.initCurrency(scanner)),
-                            bban, accountUtils.setBankName(bban)
-            );
+        for (int i = 0; i < userAccounts; i++) {
+            String bban = null;
+            String currency = null;
+            String bankName = null;
+            //TODO merge
+
+            do {
+                bban = accountUtils.setBban(scanner);
+            } while (bban == null);
+
+            do {
+                currency = accountUtils.setCurrency(accountUtils.initCurrency(scanner));
+            } while (currency == null);
+
+            do {
+                bankName = accountUtils.setBankName(bban);
+            } while (bankName == null);
+
+            Account account = new Account(currency,
+                    bban, bankName);
             user.getAccounts().add(account);
         }
     }
 
-    public User initUser (Scanner scanner) {
+    public User initUser(Scanner scanner) {
         //figyeljük meg a már említett passzolt scannert.
 
         System.out.println("You have to define user's data.");
@@ -74,8 +88,7 @@ public class UserUtils {
             age = scanner.nextInt();
             if (age < 0) {
                 System.out.print("You can't be 0 or less years old. LoLfagit. Try Again!");
-            }
-            else {
+            } else {
                 validAge = false;
             }
         }
@@ -85,47 +98,46 @@ public class UserUtils {
         while (validGender) {
             System.out.print("Gender (0 - male, 1 - female): ");
             gender = scanner.nextInt();
-            if ( gender != 0 && gender != 1) {
+            if (gender != 0 && gender != 1) {
                 System.out.print("Only 0 or 1 is acceptable. Try Again!");
-            }
-            else {
+            } else {
                 validGender = false;
             }
         }
 
-        return new User( username, firstName, lastName, age, setGender(gender), id );
+        return new User(username, firstName, lastName, age, setGender(gender), id);
         //A setGender be fogja állítani a 2 elemű tömbböl a megfelelőt. (male, female)
     }
-    public long generateID () {
+
+    public long generateID() {
         Random random = new Random();
         return random.nextLong();
         //generálunk egy random longot, ez lesz az id.
     }
 
-    public void printUser (Scanner scanner) {
+    public void printUser(Scanner scanner) {
         System.out.println("Choose a user by username and get it's data.");
         String username = scanner.next();
         String userdata = null;
 
         //ha létezik az adott username, akkor kiírjuk annak minden adatát. Ilyen célokra jobb lenne mapet használni,
         //mert nem lenne szükséges az iterálás, csupán egy kulcsot keresnénk, ami visszadobná az értéket.
-        for(User user: users) {
+        for (User user : users) {
             if (user.getUsername().equals(username)) {
                 userdata = user.toString();
             }
         }
         if (userdata == null) {
             System.out.println("There's no existing user with this username.");
-        }
-        else {
+        } else {
             System.out.print(userdata);
         }
     }
 
-    public boolean isExisting (String username, long id) {
+    public boolean isExisting(String username, long id) {
         //szokásos iterálás, ha létezik az adott id, vagy username, akkor visszaküldünk egy true-t és emiatt új user nevet kell majd megadni.
-        for(User user: users) {
-            if (user.getUsername().equals(username) || user.getId() == id ) {
+        for (User user : users) {
+            if (user.getUsername().equals(username) || user.getId() == id) {
                 return true;
             }
         }

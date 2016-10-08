@@ -14,6 +14,7 @@ public class AccountUtils {
     static {
         Hashtable<Integer, String> tmp =
                 new Hashtable<Integer, String>();
+        //csak ezekkel a bankokkal foglalkozunk
         tmp.put(107, "CIB");
         tmp.put(108, "Citibank");
         tmp.put(116, "Erste");
