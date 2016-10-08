@@ -31,9 +31,9 @@ public class AccountUtils {
         return scanner.nextInt();
     }
 
-    public String initCurrency (Scanner scanner) {
+    public String initCurrency(Scanner scanner) {
         System.out.println("What Foreign Currency would you like to set on that account?\n" +
-                              "(specify with the 3 characters long ID. Like USD, EUR, etc...");
+                "(specify with the 3 characters long ID. Like USD, EUR, etc...");
         return scanner.next();
     }
 
@@ -45,7 +45,7 @@ public class AccountUtils {
         Matcher m = p.matcher(currency);
 
         if (m.find()) {
-           return currency;
+            return currency;
         } else {
             System.out.println("Nem megfelelő deviza formátum.");
         }
@@ -54,10 +54,10 @@ public class AccountUtils {
 
     public String setBban(Scanner scanner) {
 
-        System.out.println("Adja meg a számlaszámot!\n");
+        System.out.println("Adja meg a számlaszámot!");
 
         //create a pattern object
-        Pattern p = Pattern.compile( "1[0,1,2,3,9][\\d]{6}-[\\d]{8}-[\\d]{8}" );
+        Pattern p = Pattern.compile("1[0,1,2,3,9][\\d]{6}-[\\d]{8}");
 
         String bban = scanner.next();
         //create a matcher object
@@ -65,11 +65,14 @@ public class AccountUtils {
 
 
         if (m.find()) {
-            return bban;
+            boolean isValid = validateBban(bban);
+            if (isValid) {
+                return bban;
+            }
         } else {
             System.out.println("Nem megfelelő bankszámlaszám formátum.");
         }
-     return null;
+        return null;
     }
 
     //Magyarországon a számlaszám első 3 karaktere a bank azonosítóját határozza meg.
@@ -83,12 +86,51 @@ public class AccountUtils {
             String bankName = BANKS.get(Integer.parseInt(bankID.toString()));
             if (bankName == null) {
                 System.out.println("Ismeretlen bank! Kérem keresse a supportot!");
-            }
-            else {
+            } else {
                 System.out.println("A bank neve: " + bankName);
                 return bankName;
             }
         }
-       return null;
+        return null;
+    }
+
+    public boolean validateBban(String bban) {
+        //http://gepembernaploja.blog.hu/-0001/11/30/bankszamlaszamok_felepitese
+        //http://bankkerdes.blogspot.hu/2014/03/bankszamlaszam-felepitese.html
+
+        int value = 0;
+        int[] inspect = {9, 7, 3, 1};
+        boolean valid = false;
+
+        while (!valid) {
+            int n = 0;
+            for (int i = 0; i < bban.length(); i++) {
+                if (n < 4) {
+                    int asd = 0;
+                    try {
+                        asd = Integer.parseInt(String.valueOf(bban.charAt(i)));
+                    } catch (NumberFormatException e) {
+                        value = 0;
+                        continue;
+                    }
+
+                    value += inspect[n] * asd;
+                    n++;
+                    if ((i % 8) == 0  && i != 0) {
+                        if ((value % 10) == 0) {
+                            valid = true;
+                        }
+                        else {
+                            return false;
+                        }
+                    }
+
+                } else {
+                    n = 0;
+                    i--;
+                }
+            }
+        }
+        return valid;
     }
 }
