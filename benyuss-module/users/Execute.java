@@ -6,9 +6,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Application {
+public class Execute {
 
-    public static void main(String[] args) {
+    public void doStuff () {
 
         Scanner scanner = new Scanner(System.in);
         // Sok bugot lehet azzal előidézni (legalább is nekem sikerült és ekkora javasolta Szaszi, hogy inkább egy Scanner példány legyen
