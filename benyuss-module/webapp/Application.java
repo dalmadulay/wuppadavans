@@ -8,12 +8,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @SpringBootApplication
-@EnableAutoConfiguration
 @ComponentScan
 @EnableJpaRepositories
-@EnableWebMvc
 public class Application {
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(Application.class, args); //NOSONAR
     }
 }

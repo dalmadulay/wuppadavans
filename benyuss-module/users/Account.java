@@ -20,7 +20,7 @@ public class Account {
         return creationDate;
     }
 
-    public void setCreationDate() {
+     public void setCreationDate() {
         //timestamp of account creation.
         java.util.Date date = new java.util.Date();
         this.creationDate = new Timestamp(date.getTime());
