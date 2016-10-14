@@ -1,5 +1,9 @@
 package hu.wup.wuppadavans;
 
+
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 public class Account {
 
     public String szamlaszam;
@@ -7,12 +11,13 @@ public class Account {
     public String devizanem;
     public String iban;
 
-//    @Override
-//    public String toString() {
-//        return "Szamlaszam: " + szamlaszam +
-//                ", IBAN szam: HU" + iban + " " + szamlaszam + '\'' +
-//                "";
-//    }
+
+    @Override
+    public String toString() {
+        return "Szamlaszam: " + szamlaszam +
+                ", IBAN szam: HU" + iban + " " + szamlaszam + '\'' +
+                "";
+    }
 
     public String getSzamlaszam() {
         return szamlaszam;
