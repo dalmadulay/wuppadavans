@@ -2,25 +2,30 @@ package com.example.entity;
 
 
 import javax.persistence.*;
+import java.util.List;
+
 
 @Entity
 @Table(name = "upp_user")
 public class Users {
 
+    public static final String ID_COLUMN_NAME = "User_Id";
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) //??
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = ID_COLUMN_NAME)
     private long id;
-
     private String name;
-
     private int age;
 
-    public long getId() {
-        return id;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
+    private List<Accounts> accountsList;
+
+    public List<Accounts> getAccountsList() {
+        return accountsList;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setAccountsList(List<Accounts> accountsList) {
+        this.accountsList = accountsList;
     }
 
     public String getName() {
@@ -38,4 +43,5 @@ public class Users {
     public void setAge(int age) {
         this.age = age;
     }
+
 }
