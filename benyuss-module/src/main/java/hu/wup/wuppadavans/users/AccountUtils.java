@@ -1,29 +1,34 @@
-package users;
+package hu.wup.wuppadavans.users;
 
-import java.util.Collections;
-import java.util.Hashtable;
-import java.util.Map;
-import java.util.Scanner;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+import org.iban4j.CountryCode;
+import org.iban4j.Iban;
+import org.iban4j.IbanFormatException;
+
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AccountUtils {
 
-    public static final Map<Integer, String> BANKS;
+    public static HashBiMap<Integer, String> banksByInt = new HashBiMap<>();
+    public static Map<String, Integer> banksByString = new HashMap<>();
 
     static {
-        Hashtable<Integer, String> tmp =
-                new Hashtable<Integer, String>();
+        HashMap<Integer, String> bankList = new HashMap<>();
         //csak ezekkel a bankokkal foglalkozunk
-        tmp.put(107, "CIB");
-        tmp.put(108, "Citibank");
-        tmp.put(116, "Erste");
-        tmp.put(117, "OTP");
-        tmp.put(120, "Raiffeisen");
-        tmp.put(137, "ING");
-        tmp.put(190, "MNG");
+        bankList.put(107, "CIB");
+        bankList.put(108, "Citibank");
+        bankList.put(116, "Erste");
+        bankList.put(117, "OTP");
+        bankList.put(120, "Raiffeisen");
+        bankList.put(137, "ING");
+        bankList.put(190, "MNG");
 
-        BANKS = Collections.unmodifiableMap(tmp);
+        banksByInt.putAll(bankList);
+        banksByString = banksByInt.inverse(); //NOSONAR
+
     }
 
     public int amountOfAccounts(Scanner scanner) {
@@ -76,14 +81,14 @@ public class AccountUtils {
     }
 
     //Magyarországon a számlaszám első 3 karaktere a bank azonosítóját határozza meg.
-    //Levágjuk az azonosítót, majd az előre definiált BANKS listából megtudjuk a nevét.
+    //Levágjuk az azonosítót, majd az előre definiált banksByInt listából megtudjuk a nevét.
     public String setBankName(String bban) {
         if (bban == null) {
             System.out.println("A bankszámla formátuma nem megfelelő. Kérem próbálja újra!");
         } else {
             //levágjuk az első 3 karaktert és megnézzük, hogy a listában létezik-e bank ilyen azonosítóval
             CharSequence bankID = bban.subSequence(0, 3);
-            String bankName = BANKS.get(Integer.parseInt(bankID.toString()));
+            String bankName = banksByInt.get(Integer.parseInt(bankID.toString()));
             if (bankName == null) {
                 System.out.println("Ismeretlen bank! Kérem keresse a supportot!");
             } else {
@@ -132,5 +137,29 @@ public class AccountUtils {
             }
         }
         return valid;
+    }
+    /**
+            * Generates valid IBAN number from BBAN/GIRO number and country code
+     *
+             * @param request
+     * @return IBAN number
+     */
+
+    public String generateIBAN (String bban) {
+        String validBban = bban.replace("-","");
+        String ibanAsString = null;
+        try {
+            Iban iban = new Iban.Builder()
+                    .countryCode(CountryCode.HU)
+                    .bankCode(validBban.substring(0,3))
+                    .branchCode(validBban.substring(3,8))
+                    .accountNumber(validBban.substring(8))
+                    .nationalCheckDigit("")
+                    .build(false);
+            ibanAsString = iban.toString();
+        } catch (IbanFormatException e){
+            e.printStackTrace();
+        }
+        return ibanAsString;
     }
 }
