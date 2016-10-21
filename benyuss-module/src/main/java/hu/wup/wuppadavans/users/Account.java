@@ -1,4 +1,4 @@
-package users;
+package hu.wup.wuppadavans.users;
 
 import java.sql.Timestamp;
 
@@ -7,12 +7,14 @@ public class Account {
     private String currency;
     private Timestamp creationDate;
     private String bban;
+    private String iban;
     private String bankName;
 
-    public Account(String currency, String bban, String bankName) {
+    public Account(String currency, String bban, String bankName, String iban) {
         this.bban = bban;
         this.bankName = bankName;
         this.currency = currency;
+        this.iban = iban;
         setCreationDate();
     }
 
@@ -50,13 +52,22 @@ public class Account {
         this.bankName = bankName;
     }
 
+    public String getIban() {
+        return iban;
+    }
+
+    public void setIban(String iban) {
+        this.iban = iban;
+    }
+
     @Override
     public String toString() {
-        return "Account {" +
-                " bban='" + bban + '\'' +
-                ", bankName='" + bankName + '\'' +
-                ", currency='" + currency + '\'' +
+        return "Account{" +
+                "currency='" + currency + '\'' +
                 ", creationDate=" + creationDate +
+                ", bban='" + bban + '\'' +
+                ", iban='" + iban + '\'' +
+                ", bankName='" + bankName + '\'' +
                 '}';
     }
 }

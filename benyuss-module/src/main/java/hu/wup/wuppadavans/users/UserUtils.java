@@ -1,4 +1,4 @@
-package users;
+package hu.wup.wuppadavans.users;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -23,10 +23,10 @@ public class UserUtils {
         int userAccounts = accountUtils.amountOfAccounts(scanner);
 
         for (int i = 0; i < userAccounts; i++) {
-            String bban = null;
-            String currency = null;
-            String bankName = null;
-            //TODO merge
+            String bban;
+            String currency;
+            String bankName;
+            String iban;
 
             do {
                 bban = accountUtils.setBban(scanner);
@@ -40,11 +40,14 @@ public class UserUtils {
                 bankName = accountUtils.setBankName(bban);
             } while (bankName == null);
 
+            iban = accountUtils.generateIBAN(bban);
+
             Account account = new Account(currency,
-                    bban, bankName);
+                    bban, bankName, iban);
             user.getAccounts().add(account);
         }
     }
+
 
     public User initUser(Scanner scanner) {
         //figyeljük meg a már említett passzolt scannert.

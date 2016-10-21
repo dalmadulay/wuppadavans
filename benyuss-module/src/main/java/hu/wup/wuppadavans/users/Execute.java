@@ -1,14 +1,10 @@
-package users;
+package hu.wup.wuppadavans.users;
 
-import com.sun.istack.internal.NotNull;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Execute {
 
-    public void doStuff () {
+    public static void main (String args[]) {
 
         Scanner scanner = new Scanner(System.in);
         // Sok bugot lehet azzal előidézni (legalább is nekem sikerült és ekkora javasolta Szaszi, hogy inkább egy Scanner példány legyen
