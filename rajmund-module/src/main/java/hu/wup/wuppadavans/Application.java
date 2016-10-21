@@ -19,14 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class Application {
 
-    @RequestMapping("/")
-    public String printHello(){
-        return "csa baszdmeg";
-    }
-
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
-
+    private void metodus() {
         List<User> userList = new ArrayList<User>();
         Scanner sc = new Scanner(System.in);
         System.out.println("Add meg a felhasznaloszamot!");
@@ -59,7 +52,7 @@ public class Application {
                 account.setIban(sc.next());
 
                 accountList.add(account);
-                                                                                                   // account.setIban(Math.random() * 99) + 01);
+                // account.setIban(Math.random() * 99) + 01);
             }
             user.setAccounts(accountList);
             userList.add(user);
@@ -69,33 +62,14 @@ public class Application {
         userList.forEach(System.out::println);
     }
 
+    @RequestMapping("/")
+    public String printHello() {return "csa baszdmeg";}
 
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+        Application fometodus = new Application();
+        fometodus.metodus();
+
+    }
 }
 
-			
-		/* ArrayList lista = new ArrayList();
-			for(int ID = 1; ID <= usernumber; ID++) {
-				if(ID>1) {
-					System.out.println(ID+". Felhaszn�l�");
-				}
-				lista.add(ID);
-				System.out.println("Add meg a vezet�kneved!");
-				user.setLastName(sc.next());
-				lista.add(user.getLastName());
-				System.out.println("Add meg a keresztneved!");
-				user.setFirstName(sc.next());
-				lista.add(user.getLastName());
-				System.out.println("Add meg a nemed!");
-				user.setGender(sc.next());
-				lista.add(user.getGender());
-				System.out.println("�s add meg az �letkorod!");
-				user.setAge(sc.nextInt());
-				lista.add(user.getAge());
-				System.out.println("");
-				//System.out.print(ID+1 + ". Felhaszn�l�:\n");
-			}
-			System.out.println(lista); 
-			
-	}
-
-} */
