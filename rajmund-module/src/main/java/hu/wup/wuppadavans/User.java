@@ -1,21 +1,40 @@
 package hu.wup.wuppadavans;
 
-public class User {
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
+
+public class User extends Account {
 		public String lastName;
 		public String firstName;
 		public String gender;
 		public int age;
 		public long ID;
-		
-		 @Override
+		public List<Account> accounts;
+
+	public List<Account> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(List<Account> accountList) {
+		this.accounts = accountList;
+	}
+
+	@Override
 		    public String toString() {
-		        return "Felhaszn�l�: " +
-		                "ID= " + ID+1 +
-		                ", Keresztn�v= " + firstName + '\'' +
-		                ", Vezet�kn�v= " + lastName + '\'' +
-		                ", �letkor= " + age +
-		                ", Nemed= " + gender + '\'' +
-		                "";
+		        return
+// "Felhasználo: " +
+//		                "ID= " + ID+1 +
+		                "Keresztnev= " + firstName + '\'' +
+		                ", Vezeteknev= " + lastName + '\'' +
+		                ", Eletkor= " + age +
+		                ", Nemed= " + gender + '\'' + " " +
+								accounts +
+//		                ", Szamlaszam: " + szamlaszam + '\'' +
+//						", Devizanem: " + devizanem + '\'' +
+//						", IBAN szam: HU" + iban + " " + szamlaszam + '\'' +
+						"";
 		}
 		
 		
