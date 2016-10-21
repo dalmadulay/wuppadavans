@@ -27,6 +27,8 @@
         <module>aharcsa-module</module>
         <module>rajmund-module</module>
         <module>vaszabi-module</module>
+        <module>benyuss-module</module>
+        <module>ddulay-module</module>
     </modules>
 
     <build>
